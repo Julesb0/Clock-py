@@ -1,30 +1,30 @@
 import math
 
-class ClockTick:
+class Node:
     def __init__(self, data):
         self.data = data
-        self.prev = None
+        self.prev = None 
         self.next = None
 
 class CircularDoublyLinkedList:
     def __init__(self):
         self.head = None
         self._size = 0
-
+    
     def insert_at_end(self, data):
-        new_tick = ClockTick(data)
+        new_node = Node(data)
         if self.head is None:
-            self.head = new_tick
-            new_tick.next = new_tick
-            new_tick.prev = new_tick
+            self.head = new_node
+            new_node.next = new_node
+            new_node.prev = new_node
         else:
             last = self.head.prev
-            last.next = new_tick
-            new_tick.prev = last
-            new_tick.next = self.head
-            self.head.prev = new_tick
+            last.next = new_node
+            new_node.prev = last
+            new_node.next = self.head
+            self.head.prev = new_node
         self._size += 1
-        return new_tick
+        return new_node
 
     def get_node_at(self, index):
         if self.head is None or self._size == 0:
@@ -37,16 +37,6 @@ class CircularDoublyLinkedList:
 
     def size(self):
         return self._size
-
-    def to_list(self):
-        out = []
-        if self.head is None:
-            return out
-        cur = self.head
-        for _ in range(self._size):
-            out.append(cur.data)
-            cur = cur.next
-        return out
 
     @staticmethod
     def build_ticks(n=60):
